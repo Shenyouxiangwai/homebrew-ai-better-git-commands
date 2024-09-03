@@ -1,9 +1,9 @@
 class AiBetterGitCommands < Formula
   desc "A script to automate git commit messages"
-  homepage "https://github.com/Shenyouxiangwai/homebrew-ai-better-git-commands" # 替换为你的主页 URL
-  url "https://github.com/Shenyouxiangwai/homebrew-ai-better-git-commands/auto-commit.sh" # 替换为你的脚本 URL
+  homepage "https://github.com/Shenyouxiangwai/homebrew-ai-better-git-commands"
+  url "https://raw.githubusercontent.com/Shenyouxiangwai/homebrew-ai-better-git-commands/main/auto-commit.sh"
   version "1.0.0"
-  sha256 "af8b26ec4a02147be4bc5e4b3be7bd19348edaa364f3bb6a3b73ab714de68587" # 替换为你的脚本的 SHA256 校验和
+  sha256 "af8b26ec4a02147be4bc5e4b3be7bd19348edaa364f3bb6a3b73ab714de68587"
 
   def install
     bin.install "auto-commit.sh" => "ait" # 将脚本安装为 ait

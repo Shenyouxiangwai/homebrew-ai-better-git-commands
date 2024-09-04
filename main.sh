@@ -18,7 +18,7 @@ function show_help {
 }
 
 # 检查帮助命令
-if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+if [[ "$1" == "-a" || "$1" == "--help" ]]; then
     show_help
     exit 0
 fi

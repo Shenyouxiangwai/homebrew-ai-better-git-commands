@@ -3,7 +3,7 @@ class AiBetterGitCommands < Formula
   homepage "https://github.com/Shenyouxiangwai/homebrew-ai-better-git-commands"
   url "https://raw.githubusercontent.com/Shenyouxiangwai/homebrew-ai-better-git-commands/main/main.sh"
   version "1.0.0"
-  sha256 "43aff44ad030b22fd2281acdf24e63640e14224eda020dedcb5b34ca5d3847da"
+  sha256 "786c55ec108cf7cf8a0ed3604bd0c7cc0b6b213ba01d611eb3a51c809ed583b3"
 
   def install
     bin.install "main.sh" => "ait" # 将主要脚本安装为 ait

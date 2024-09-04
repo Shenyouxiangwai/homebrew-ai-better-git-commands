@@ -19,12 +19,12 @@ if [[ "$1" == "-h" || "$1" == "--help" ]]; then
     exit 0
 fi
 
-# 调用 get_changelog.sh
+# 调用 get_changelog
 if [[ $1 == "review" ]]; then
-    "$SCRIPT_DIR/get_changelog.sh"
-# 调用 get_commit_message.sh
+    get_changelog
+# 调用 get_commit_message
 elif [[ $1 == "commit" ]]; then
-    "$SCRIPT_DIR/get_commit_message.sh"
+    get_commit_message
 else
     echo "Usage: $0 {review|commit}"
     exit 1

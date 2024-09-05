@@ -48,6 +48,12 @@ function get_changelog {
       -H "Content-Type: application/json" \
       -d "$json_data" | tr -d '\000-\037')
 
+
+   if [ "$response" -ne 200 ]; then
+        printf "\e[31mError: Received HTTP status $response from server!\e[0m\n" >&2
+        exit 1
+    fi
+    
     cleaned_response=$(echo "$response" | tr -d '\000-\037')
 
     changelog=$(echo "$cleaned_response" | jq -r '.changelog')
@@ -61,9 +67,14 @@ function get_changelog {
 }
 
 function get_commit_message {
-    response=$(curl -s -X POST https://shenyouxiangwai.com/gitcommands/getGitCommitMessage \
+    response=$(curl -s -X POST https://shenyouxiangwai.com/gitcommands/getCommitMessage \
       -H "Content-Type: application/json" \
       -d "$json_data" | tr -d '\000-\037')
+
+   if [ "$response" -ne 200 ]; then
+        printf "\e[31mError: Received HTTP status $response from server!\e[0m\n" >&2
+        exit 1
+    fi
 
     cleaned_response=$(echo "$response" | tr -d '\000-\037')
 

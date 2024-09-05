@@ -3,19 +3,15 @@ class AiBetterGitCommands < Formula
   homepage "https://github.com/Shenyouxiangwai/homebrew-ai-better-git-commands"
   url "https://raw.githubusercontent.com/Shenyouxiangwai/homebrew-ai-better-git-commands/main/main.sh"
   version "1.1.0"
-  sha256 "ea43eef261f7a4931a426bec66374398d8739565329237ff051b690bd1f13eb2" # 请替换为 main.sh 的实际 SHA256 值
+  sha256 "22958298b4f1176e96f106fd588a714c5092a2db54c564b65d35f75d3315ecf9"
 
   def install
-    bin.install "main.sh" => "ait" # 将主要脚本安装为 ait
-    bin.install "get_changelog.sh" => "get_changelog" # 安装 get_changelog.sh
-    bin.install "get_commit_message.sh" => "get_commit_message" # 安装 get_commit_message.sh
-    chmod 0755, bin/"ait" # 确保脚本是可执行的
-    chmod 0755, bin/"get_changelog" # 确保脚本是可执行的
-    chmod 0755, bin/"get_commit_message" # 确保脚本是可执行的
+    bin.install "ait.sh" => "ait"
+    chmod 0755, bin/"ait"
   end
 
   test do
-    system "#{bin}/ait", "review" # 测试变更日志命令
-    system "#{bin}/ait", "commit" # 测试提交信息命令
+    system "#{bin}/ait", "review"
+    system "#{bin}/ait", "commit"
   end
 end

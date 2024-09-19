@@ -39,10 +39,34 @@ json_data=$(jq -n \
   --arg secret_key "$AIT_SECRET_KEY" \
   '{diff_output: $diff_output, secret_key: $secret_key}')
 
+# 动态加载效果函数
+function show_spinner {
+    local pid=$!
+    local delay=0.1
+    local spinstr='|/-\'
+    while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
+        local temp=${spinstr#?}
+        printf "\r\e[33mProcessing... %c\e[0m" "$spinstr"
+        local spinstr=$temp${spinstr%"$temp"}
+        sleep $delay
+    done
+    printf "\r\e[32mProcessing... Done!\e[0m\n"
+}
+
 function get_changelog {
-    response=$(curl -s -w "\n%{http_code}" -X POST https://shenyouxiangwai.com/gitcommands/getChangelog \
-      -H "Content-Type: application/json" \
-      -d "$json_data")
+    # 后台运行curl命令
+    {
+        response=$(curl -s -w "\n%{http_code}" -X POST https://shenyouxiangwai.com/gitcommands/getChangelog \
+          -H "Content-Type: application/json" \
+          -d "$json_data")
+        echo "$response" > /tmp/response_changelog
+    } &
+
+    # 显示动态加载效果
+    show_spinner
+
+    response=$(cat /tmp/response_changelog)
+    rm /tmp/response_changelog
 
     status_code=$(echo "$response" | tail -n 1)
     body=$(echo "$response" | sed '$d')
@@ -65,9 +89,19 @@ function get_changelog {
 }
 
 function get_commit_message {
-    response=$(curl -s -w "\n%{http_code}" -X POST https://shenyouxiangwai.com/gitcommands/getCommitMessage \
-      -H "Content-Type: application/json" \
-      -d "$json_data")
+    # 后台运行curl命令
+    {
+        response=$(curl -s -w "\n%{http_code}" -X POST https://shenyouxiangwai.com/gitcommands/getCommitMessage \
+          -H "Content-Type: application/json" \
+          -d "$json_data")
+        echo "$response" > /tmp/response_commit
+    } &
+
+    # 显示动态加载效果
+    show_spinner
+
+    response=$(cat /tmp/response_commit)
+    rm /tmp/response_commit
 
     status_code=$(echo "$response" | tail -n 1)
     body=$(echo "$response" | sed '$d')
